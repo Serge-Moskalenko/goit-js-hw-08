@@ -1,28 +1,30 @@
 import throttle from "lodash.throttle";
 
 
-const iframe = document.querySelector('#vimeo-player');
-const iframe_2=document.querySelector("iframe")
+const iframe_2 = document.querySelector('#vimeo-player');
+const iframe = document.querySelector("iframe");
 const player = new Vimeo.Player(iframe);
 const player_2 = new Vimeo.Player(iframe_2);
 
 player.on('timeupdate', throttle(function (e) {
-    videoTime("videoplayer-current-time", e.seconds)
+    videoTime("videoplayer-current-time", e.seconds) 
 },
     1000));
+
 
 player.getVideoTitle().then(function (title) { localStorage.setItem("videoplayer-current-name", `"name":${title}`) });
 
 player_2.on('timeupdate', throttle(function (e) {
-    videoTime("videoplayer-current-time_2", e.seconds);
+    videoTime("videoplayer-current-time-2", e.seconds) 
 },
     1000));
 
-player_2.getVideoTitle().then(function (title) {localStorage.setItem("videoplayer-current-name_2", `"name_2":${title}`)});
 
-if (localStorage.getItem("videoplayer-current-time") !== null) {
-  player.setCurrentTime(
-    JSON.parse(localStorage.getItem("videoplayer-current-time")).time).then(function (seconds) {
+player_2.getVideoTitle().then(function (title) { localStorage.setItem("videoplayer-current-name-2", `"name":${title}`) });
+
+
+player.setCurrentTime(
+    JSON.parse(localStorage.getItem("videoplayer-current-time"))?.time).then(function (seconds) {
         // seconds = the actual time that the player seeked to
     }).catch(function (error) {
         switch (error.name) {
@@ -34,11 +36,10 @@ if (localStorage.getItem("videoplayer-current-time") !== null) {
                 // some other error occurred
                 break;
         }
-    });  
-}
+    });
 
-if (localStorage.getItem("videoplayer-current-time") !== null) {
-    player_2.setCurrentTime(JSON.parse(localStorage.getItem("videoplayer-current-time_2")).time).then(function (seconds) {
+player_2.setCurrentTime(
+    JSON.parse(localStorage.getItem("videoplayer-current-time-2"))?.time).then(function (seconds) {
         // seconds = the actual time that the player seeked to
     }).catch(function (error) {
         switch (error.name) {
@@ -50,9 +51,8 @@ if (localStorage.getItem("videoplayer-current-time") !== null) {
                 // some other error occurred
                 break;
         }
-    })
-};
+    });
 
-function videoTime(key, time) {
+    function videoTime(key, time) {
     localStorage.setItem(key, JSON.stringify({ time: time }))
 }; 
