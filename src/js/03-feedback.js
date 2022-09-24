@@ -24,11 +24,9 @@ function onSubmit(e) {
 function filledForm() {
     const messegeE = JSON.parse(localStorage.getItem("feedback-form-state"));
 
-    console.log(messegeE)
-    if (messegeE) {
-
+    if (messegeE.email) {
         formEl.firstElementChild.firstElementChild.value = messegeE.email;
-
+    } else {
         formEl.firstElementChild.nextElementSibling.firstElementChild.value = messegeE.message;
     }
 };
