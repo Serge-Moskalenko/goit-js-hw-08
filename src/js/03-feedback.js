@@ -26,7 +26,9 @@ function filledForm() {
 
     if (messegeE.email) {
         formEl.firstElementChild.firstElementChild.value = messegeE.email;
+        formData.email = messegeE.email;
     } else {
         formEl.firstElementChild.nextElementSibling.firstElementChild.value = messegeE.message;
+        formData.message = messegeE.message;
     }
 };
