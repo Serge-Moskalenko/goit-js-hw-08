@@ -22,13 +22,20 @@ function onSubmit(e) {
 };
 
 function filledForm() {
-    const messegeE = JSON.parse(localStorage.getItem("feedback-form-state"));
+    try {
+        const messegeE = JSON.parse(localStorage.getItem("feedback-form-state"));
 
-    if (messegeE.email) {
+        if (messegeE.email) {
         formEl.firstElementChild.firstElementChild.value = messegeE.email;
         formData.email = messegeE.email;
     } else {
         formEl.firstElementChild.nextElementSibling.firstElementChild.value = messegeE.message;
         formData.message = messegeE.message;
-    }
+        };
+        
+    } catch (error) {
+        console.log(error.name); 
+        console.log(error.message);
+    };
+
 };
